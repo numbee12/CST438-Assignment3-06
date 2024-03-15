@@ -23,7 +23,14 @@ const InstructorHome = () => {
             </tr>
             </tbody>
             </table>
-            <Link to='/sections' state={term}>Show Sections</Link>
+            <Link to='/sections' state={term}>Show Sections</Link> &nbsp;|&nbsp; 
+                {/* 
+                    FIXME:  state values need to be passed in below.
+                            I just set them to empty strings for now
+                            as placeholder values to avoid errors for
+                            testing 
+                */}
+            <Link to="/Assignments" state={{secNo: "", courseId: "", secId: ""}}>Assignments</Link>
         </>
     )
 };
