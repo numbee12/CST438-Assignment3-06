@@ -59,14 +59,14 @@ const AssignmentsStudentView = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                {assignments.map((assignment) =>
-                    <tr key={assignment.courseId}>
-                        <td>{assignment.courseId}</td>
-                        <td>{assignment.title}</td>
-                        <td>{assignment.dueDate}</td>
-                        <td>{assignment.score}</td>
-                    </tr>
-                )}
+                    {assignments.map((assignment) =>
+                        <tr key={assignment.courseId}>
+                            <td>{assignment.courseId}</td>
+                            <td>{assignment.title}</td>
+                            <td>{assignment.dueDate}</td>
+                            <td>{assignment.score}</td>
+                        </tr>
+                    )}
                 </tbody>
 
             </table>
