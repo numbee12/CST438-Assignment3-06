@@ -13,10 +13,11 @@ const EnrollmentsView = (props) => {
 
     const location = useLocation();
     const {secNo, courseId, secId} = location.state;
-
     return(
-        <> 
-            <h3>Not implemented</h3>   
+
+        <>
+            <h3>Not implemented</h3>
+            <h3>{secNo}</h3>
         </>
     );
 }
