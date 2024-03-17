@@ -6,6 +6,7 @@ import {confirmAlert} from "react-confirm-alert";
 import SectionUpdate from "../admin/SectionUpdate";
 import Button from "@mui/material/Button";
 import AssignmentUpdate from "./AssignmentUpdate";
+import AssignmentGrade from './AssignmentGrade';
 
 // instructor views assignments for their section
 // use location to get the section value 
@@ -134,6 +135,7 @@ const AssignmentsView = (props) => {
                                 <td>{a.secNo}</td>
                                 <td><AssignmentUpdate asgnmts={a} onClose={gradeAsgnmt()} /></td>
                                 <td><Button onClick={onDelete}>Delete</Button></td>
+                                <td><AssignmentGrade asgnmtId={a.id} /></td>
                             </tr>
                         ))
                         }
