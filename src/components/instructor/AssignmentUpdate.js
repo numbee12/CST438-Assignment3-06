@@ -5,6 +5,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
 import DialogActions from "@mui/material/DialogActions";
+import {SERVER_URL} from "../../Constants";
 
 //  instructor updates assignment title, dueDate 
 //  use an mui Dialog
@@ -33,13 +34,28 @@ const AssignmentUpdate = (props)  => {
   }
 
   const onSave = () => {
-    if (assignment.title==='') {
-      setEditMessage("Title can not be blank");
-    }else if (assignment.dueDate==='') {
-      setEditMessage("Enter Valid Due date yyyy-mm-dd format");
-    }else {
-      props.save(assignment);
-      editClose();
+    saveSection(assignment);
+  }
+
+  const saveSection = async (assignment) => {
+    try {
+      const response = await fetch (`${SERVER_URL}/assignments`,
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(assignment),
+          });
+      if (response.ok) {
+        setEditMessage("section saved");
+        editClose();
+      } else {
+        const rc = await response.json();
+        setEditMessage(rc.message);
+      }
+    } catch (err) {
+      setEditMessage("network error: "+err);
     }
   }
     return (
