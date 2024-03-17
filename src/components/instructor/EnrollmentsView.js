@@ -1,8 +1,8 @@
 
 import React, {useState, useEffect} from 'react';
 import {useLocation} from 'react-router-dom';
+import {SERVER_URL} from '../../Constants';
 
-//
 //// instructor view list of students enrolled in a section
 //// use location to get section no passed from InstructorSectionsView
 //// fetch the enrollments using URL /sections/{secNo}/enrollments
@@ -22,7 +22,7 @@ const EnrollmentsView = (props) => {
     const {secNo, courseId, secId} = location.state;
 
 
-    const { secNo} = location.state;
+  //  const {secNo} = location.state;
 
     useEffect(() => {
         fetchEnrollments(secNo);
