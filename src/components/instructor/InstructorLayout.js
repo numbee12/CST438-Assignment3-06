@@ -1,12 +1,12 @@
 import React from 'react';
 import { Outlet, Link } from "react-router-dom";
 
-export const InstructorLayout = () => {
+const InstructorLayout = () => {
 
   return (
     <>
       <nav>
-        <Link to="/">Home</Link>&nbsp;|&nbsp;
+        <Link to="/">Home</Link>
       </nav>
       <h1>Instructor Home</h1>
       Manage assignments and grades.
