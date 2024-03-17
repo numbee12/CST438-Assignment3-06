@@ -26,7 +26,7 @@ const AssignmentsView = (props) => {
     const [search, setSearch] = useState({id: '', title: '', dueDate: '', secId: '', secNo: ''});
 
     const location = useLocation();
-    const { secNo } = location.state;
+    const { secNo, courseId, secId } = location.state;
 
     const fetchAsgnmts = async () => {
         // TODO: get the assignments
@@ -139,7 +139,7 @@ const AssignmentsView = (props) => {
                         }
                     </tbody>
                 </table>
-                {/*<AssignmentAdd save={addAssignment} />*/}
+                <AssignmentAdd secNo={secNo} courseId={courseId} secId={secId} onClose={fetchAsgnmts} />
             </div>
         </>
     );
