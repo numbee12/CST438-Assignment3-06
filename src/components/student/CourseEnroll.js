@@ -1,21 +1,28 @@
 import React, {useState, useEffect} from 'react';
+import Button from '@mui/material/Button';
+import {confirmAlert} from "react-confirm-alert";
 
 // students displays a list of open sections for a 
 // use the URL /sections/open
 // the REST api returns a list of SectionDTO objects
 
 // the student can select a section and enroll
-// issue a POST with the URL /enrollments?secNo= &studentId=3
+// issue a POST with the URL /enrollments?secNo= &studentId=3  -RH this does not work. Tests in postman says method post not supported
+//  is this supposed to be  @PostMapping("/enrollments/sections/{sectionNo}")
+// using for now, checking with prof
 // studentId=3 will be removed in assignment 7.
 
-const CourseEnroll = (props) => {
-const [message, setMessage] = useState('*layout displaying dummy info, no functionality yet*');
-const headers = ['Section No', 'Semester', 'Course Id', 'Section Id', 'Room', 'Times', 'Instructor', 'Email', ''];
 
+
+const CourseEnroll = (props) => {
+
+    const [message, setMessage] = useState('*layout displaying dummy info, no functionality yet*');
+    const headers = ['Section No', 'Semester', 'Course Id', 'Section Id', 'Room', 'Times', 'Instructor', 'Email', ''];
 
     const [oCourses, setOCourses] = useState([
 
         {
+            //need to replace this with a fetch of URL /sections/open
             secNo: 6,
             year: 2024,
             semester: "Spring",
@@ -53,11 +60,38 @@ const headers = ['Section No', 'Semester', 'Course Id', 'Section Id', 'Room', 'T
         }
     ]);
 
+    const enrollAlert = event => {
+        const row_index = event.target.parentNode.parentNode.rowIndex-1;
+        const selectedCourse = oCourses[row_index];
+        confirmAlert({
+            title: 'Confirm to Enroll',
+            message: 'Are you sure you want to enroll in Section: ' + selectedCourse.secNo +' '+ selectedCourse.courseId +' '+ selectedCourse.semester +' ?',
+            buttons: [
+                {
+                    label: 'Enroll',
+                    onClick: () => doEnroll(event)
+                },
+                {
+                    label: 'Cancel',
+                }
+            ]
+        })
+    }
+
+    const doEnroll = (event) => {
+
+        const row_index = event.target.parentNode.parentNode.rowIndex-1;
+        const selectedCourse = oCourses[row_index];
+        //use selectedCourse.secNo and studentId=3 to do the post here
+        //set message using values that are returned
+        setMessage(String(selectedCourse.secNo)+" "+ "You have enrolled in section: " + selectedCourse.secNo +" "+ selectedCourse.courseId +" "+ selectedCourse.semester);
+    }
+
 
     return (
         <>
             <h3>Open Courses</h3>
-            <h4>{message}</h4>
+
             <table className="Center">
                 <thead>
                     <tr>
@@ -75,13 +109,16 @@ const headers = ['Section No', 'Semester', 'Course Id', 'Section Id', 'Room', 'T
                             <td>{oCourse.times}</td>
                             <td>{oCourse.instructorName}</td>
                             <td>{oCourse.instructorEmail}</td>
-                            <td>Enroll</td>
+                            <td><Button onClick = {enrollAlert} >Enroll</Button></td>
                         </tr>
+
                     )}
 
                 </tbody>
-
             </table>
+
+            <h4>{message}</h4>
+
         </>
     );
 }
