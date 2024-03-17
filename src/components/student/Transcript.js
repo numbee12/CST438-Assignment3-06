@@ -11,6 +11,7 @@ const Transcript = (props) => {
     return(
         <> 
             <h3>Not implemented</h3>
+            <h3>This is transcript </h3>
         </>
     );
 }
