@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Button from '@mui/material/Button';
 import {confirmAlert} from "react-confirm-alert";
+import {SERVER_URL} from '../../Constants';
 
 // students displays a list of open sections for a 
 // use the URL /sections/open
@@ -16,60 +17,56 @@ import {confirmAlert} from "react-confirm-alert";
 
 const CourseEnroll = (props) => {
 
-    const [message, setMessage] = useState('*layout displaying dummy info, no functionality yet*');
+    const studentId = 3 //until we implement login
+    const [message, setMessage] = useState('');
     const headers = ['Section No', 'Semester', 'Course Id', 'Section Id', 'Room', 'Times', 'Instructor', 'Email', ''];
-
     const [oCourses, setOCourses] = useState([
-
-        {
-            //need to replace this with a fetch of URL /sections/open
-            secNo: 6,
-            year: 2024,
-            semester: "Spring",
-            courseId: "cst338",
-            secId: 1,
-            building: "052",
-            room: "100",
-            times: "M W 10:00-11:50",
-            instructorName: "joshua gross",
-            instructorEmail: "jgross@csumb.edu"
-        },
-        {
-            secNo: 7,
-            year: 2024,
-            semester:"Spring",
-            courseId: "cst338",
-            secId: 2,
-            building: "052",
-            room: "100",
-            times: "M W 10:00-11:50",
-            instructorName: "joshua gross",
-            instructorEmail: "jgross@csumb.edu"
-        },
-        {
-            secNo: 8,
-            year: 2024,
-            semester: "Spring",
-            courseId: "cst363",
-            secId: 1,
-            building: "052",
-            room: "104",
-            times: "M W 10:00-11:50",
-            instructorName: "david wisneski",
-            instructorEmail: "dwisneski@csumb.edu"
-        }
+        /** dummy data for testing leaving in case we need it again, maybe remove before final submission
+         {secNo: 6, year: 2024,semester: "Spring",courseId: "cst338",secId: 1,building: "052",room: "100",times: "M W 10:00-11:50",instructorName: "joshua gross",instructorEmail: "jgross@csumb.edu"},
+         {secNo: 7,year: 2024,semester:"Spring",courseId: "cst338",secId: 2,building: "052",room: "100",times: "M W 10:00-11:50",instructorName: "joshua gross",instructorEmail: "jgross@csumb.edu"},
+         {secNo: 8, year: 2024,semester: "Spring", courseId: "cst363",secId: 1,building: "052",room: "104",times: "M W 10:00-11:50",instructorName: "david wisneski",instructorEmail: "dwisneski@csumb.edu"}*/
     ]);
 
+    //function fetchOpenCourses sends get request to url to return a list of SectionDTOs of currently open courses. Takes no params or path variables.
+    const fetchOpenCourses = async () => {
+        try{
+            const response = await fetch(`${SERVER_URL}/sections/open`);
+            //check for ok response
+            if (response.ok) {
+                //wait for full return message
+                const data = await response.json();
+                //store returned data (list of SectionDTO objects) in oCourses array
+                setOCourses(data);
+            //if response.ok not received, display message that was received.
+            } else {
+                const json = await response.json();
+                setMessage("response error: "+ json.message);
+            }
+        //otherwise display network error message
+        } catch(err) {
+            setMessage("network error"+err);
+        }
+    }
+
+    //call fetchOpenCourses
+    useEffect( () => {
+        fetchOpenCourses();
+    }, [] );
+
+    //function enrollAlert receives event when user clicks on "ENROLL" displayed in row of listed class
     const enrollAlert = event => {
         const row_index = event.target.parentNode.parentNode.rowIndex-1;
         const selectedCourse = oCourses[row_index];
+        const selectedCourseSecNo = oCourses[row_index].secNo;
+        //display confirmation message until user confirms or cancels
         confirmAlert({
             title: 'Confirm to Enroll',
-            message: 'Are you sure you want to enroll in Section: ' + selectedCourse.secNo +' '+ selectedCourse.courseId +' '+ selectedCourse.semester +' ?',
+            message: 'Are you sure you want to enroll in:  Section ' + selectedCourse.secNo +' '+ selectedCourse.courseId.toUpperCase() +' '+ selectedCourse.semester +'?',
             buttons: [
                 {
+                    //if user clicks Enroll, call doEnroll to complete Enrollment
                     label: 'Enroll',
-                    onClick: () => doEnroll(event)
+                    onClick: () => doEnroll(selectedCourseSecNo)
                 },
                 {
                     label: 'Cancel',
@@ -78,14 +75,29 @@ const CourseEnroll = (props) => {
         })
     }
 
-    const doEnroll = (event) => {
+    //function doEnroll sends post message to SpringBoot server to add enrollment for this student
+     const doEnroll = async (selectedCourseSecNo) => {
+        try {
+            const response = await fetch(`${SERVER_URL}/enrollments/sections/${selectedCourseSecNo}?studentId=${studentId}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (response.ok) {
+                //display confirmation message student is now enrolled
+                setMessage("You have enrolled in Section: " + selectedCourseSecNo /**+" "+ selectedCourse.courseId +" "+ selectedCourse.semester**/)
+                fetchOpenCourses();
+            } else {
+                const rc = await response.json();
+                setMessage(rc.message);
+            }
 
-        const row_index = event.target.parentNode.parentNode.rowIndex-1;
-        const selectedCourse = oCourses[row_index];
-        //use selectedCourse.secNo and studentId=3 to do the post here
-        //set message using values that are returned
-        setMessage(String(selectedCourse.secNo)+" "+ "You have enrolled in section: " + selectedCourse.secNo +" "+ selectedCourse.courseId +" "+ selectedCourse.semester);
-    }
+        } catch(err) {
+            setMessage("network error"+err);
+        }
+     }
 
 
     return (
