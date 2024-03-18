@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {SERVER_URL} from '../../Constants';
 
-// TODO Figure our what the implementation of this is and where the parameters are coming from. Create dialog box if I need to get them from user.
-
 // student views a list of assignments and assignment grades
 // use the URL  /assignments?studentId= &year= &semester=
 // The REST api returns a list of SectionDTO objects
@@ -11,7 +9,9 @@ import {SERVER_URL} from '../../Constants';
 // display a table with columns  Course Id, Assignment Title, Assignment DueDate, Score
 
 const AssignmentsStudentView = (props) => {
+
     const studentId = 3     //until we implement login
+    const headers = ['Course', 'Assignment', 'Due Date', 'Score'];
     const [assignments, setAssignment] = useState([
         //dummy data for testing
         // { courseId: 'cst363' , title: 'Introduction to Database', dueDate: '2024-02-01', score: 90},
@@ -19,9 +19,7 @@ const AssignmentsStudentView = (props) => {
         // { courseId: 'cst311' , title: 'Networking', dueDate: '2022-01-30', score: 70},
     ]);
     const [message, setMessage] = useState('');
-    const headers = ['Course', 'Assignment', 'Due Date', 'Score'];
-    const [search, setSearch] = useState({studentId: 3 , year: 2024 , semester:'Spring'});  //uncomment this for testing then switch back
-    //const [search, setSearch] = useState({studentId:'', year:''}); //comment this for testing then switch back
+    const [search, setSearch] = useState({studentId: studentId , year: '' , semester: ''});
 
     //function fetchAssignments sends get request to url to return a list of AssignmentDTOs of student's current assignments. Request Params studentId, year, semester.
     const fetchAssignments = async () => {
@@ -33,7 +31,7 @@ const AssignmentsStudentView = (props) => {
                 //if all params are present, send fetch request to URL
                 const response = await fetch(`${SERVER_URL}/assignments?studentId=${search.studentId}&year=${search.year}&semester=${search.semester}`);
                 if (response.ok) {
-                    //receive returned DTOS and set them as the Assignments
+                    //receive returned DTOs and set them as the Assignments
                     const data = await response.json();
                     setAssignment(data);
                 } else {
@@ -46,22 +44,33 @@ const AssignmentsStudentView = (props) => {
         }
     }
 
-    //call fetchAssignments on load
-    useEffect(() => {
-        fetchAssignments();
-    }, [] );
+    const editChange = (event) => {
+        setSearch({...search,  [event.target.name]:event.target.value});
+    }
 
-//////  how do I get the score?????///////////////
-
-    
-    
-    
-    
-/////////////////////////////////////////////////////////    
     return(
         <> 
             <h3>Assignments</h3>
+
             <h4>{message}</h4>
+            <h4>Enter year and semester for Assignments you wish to retrieve:</h4>
+
+            <table className="Center">
+                <tbody>
+                <tr>
+                    <td>Year:</td>
+                    <td><input type="text" id="syear" name="year" value={search.year} onChange={editChange} /></td>
+                </tr>
+                <tr>
+                    <td>Semester:</td>
+                    <td><input type="text" id="ssemester" name="semester" value={search.semester} onChange={editChange} /></td>
+                </tr>
+                </tbody>
+            </table>
+            <br/>
+            <button type="submit" id="search" onClick={fetchAssignments} >Search for Assignments</button>
+            <br/>
+            <br/>
             <table className="Center">
                 <thead>
                     <tr>
@@ -78,7 +87,6 @@ const AssignmentsStudentView = (props) => {
                         </tr>
                     )}
                 </tbody>
-
             </table>
         </>
     );
