@@ -15,10 +15,10 @@ import {SERVER_URL} from '../../Constants';
 
 const ScheduleView = (props) => {
 
-    const headers = ['SecNo', 'CourseId', 'SecId',  'Year', 'Semester', 'Building', 'Room', 'Times', '', ''];
+    const headers = ['EnrollmentId', 'CourseId', 'SecId',  'Year', 'Semester', 'Building', 'Room', 'Times', '', ''];
 
     const [search, setSearch] = useState({
-        scheduleId: '',
+       // courseId: '',
         year: '',
         semester: ''
     });
@@ -26,11 +26,12 @@ const ScheduleView = (props) => {
     const [schedules, setSchedules] = useState([]);
 
     const fetchSections = async () => {
-            if (search.courseId==='' || search.year==='' || search.semester==='' ) {
+            if (search.year==='' || search.semester==='' ) {
                 setMessage("Enter search parameters");
             } else {
               try {
-                const response = await fetch(`${SERVER_URL}/courses/${search.courseId}/sections?year=${search.year}&semester=${search.semester}`);
+              //  `${SERVER_URL}/sections?studentId=${search.studentId}&year=${search.year}&semester=${search.semester}`
+                const response = await fetch(`${SERVER_URL}/enrollments?year=${search.year}&semester=${search.semester}&studentId=3`);
                 if (response.ok) {
                   const data = await response.json();
                   setSchedules(data);
@@ -44,9 +45,9 @@ const ScheduleView = (props) => {
             }
         }
 
-        const deleteSchedule = async (secNo) => {
+        const deleteSchedule = async (enrollmentId) => {
           try {
-            const response = await fetch (`${SERVER_URL}/sections/${secNo}`,
+            const response = await fetch (`${SERVER_URL}/enrollments/${enrollmentId}`,
             {
               method: 'DELETE',
               headers: {
@@ -92,21 +93,17 @@ const ScheduleView = (props) => {
                   <h3>Schedules!!!</h3>
 
                   <h4>{message}</h4>
-                  <h4>Enter course prefix, year, semester.  Example  cst 2024 Spring</h4>
+                  <h4>Enter year, semester.  Example  cst 2024 Spring</h4>
                   <table className="Center">
                       <tbody>
-                      <tr>
-                          <td>Course Prefix:</td>
-                          <td><input type="text" id="scourseId" name="courseId" value={search.courseId} onChange={editChange} /></td>
-                      </tr>
-                      <tr>
+                        <tr>
                           <td>Year:</td>
                           <td><input type="text" id="syear" name="year" value={search.year} onChange={editChange} /></td>
-                      </tr>
-                      <tr>
+                        </tr>
+                        <tr>
                           <td>Semester:</td>
                           <td><input type="text" id="ssemester" name="semester" value={search.semester} onChange={editChange} /></td>
-                      </tr>
+                        </tr>
                       </tbody>
                   </table>
                   <br/>
@@ -121,16 +118,16 @@ const ScheduleView = (props) => {
                       </thead>
                       <tbody>
                       {schedules.map((schedule) => (
-                              <tr key={schedule.secNo}>
-                              <td>{schedule.secNo}</td>
+                              <tr key={schedule.enrollmentId}>
+                              <td>{schedule.enrollmentId}</td>
                               <td>{schedule.courseId}</td>
-                              <td>{schedule.secId}</td>
+                              <td>{schedule.sectionId}</td>
                               <td>{schedule.year}</td>
                               <td>{schedule.semester}</td>
                               <td>{schedule.building}</td>
                               <td>{schedule.room}</td>
                               <td>{schedule.times}</td>
-                              <td><Button onClick={() => onDelete(schedule.secNo)}> Drop </Button></td>
+                              <td><Button onClick={() => onDelete(schedule.enrollmentId)}> Drop </Button></td>
                               </tr>
                           ))}
                       </tbody>
