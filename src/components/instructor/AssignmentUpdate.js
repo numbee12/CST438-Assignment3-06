@@ -26,7 +26,7 @@ const AssignmentUpdate = (props)  => {
   const editClose = () => {
     setOpen(false);
     setAssignment({id: '', title: '', dueDate: ''});
-    // props.onClose();
+    props.onClose();
 
   };
 
