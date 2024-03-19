@@ -35,36 +35,38 @@ const Transcript = () => {
 
 
     return(
-        <div>
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <div>
 
-            <h3>Student Transcript</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Year</th>
-                        <th>Semester</th>
-                        <th>CourseId</th>
-                        <th>SectionId</th>
-                        <th>Title</th>
-                        <th>Credits</th>
-                        <th>Grade</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {transcriptData.map((enrollment, index) => (
-                        <tr key={index}>
-                            <td>{enrollment.year}</td>
-                            <td>{enrollment.semester}</td>
-                            <td>{enrollment.courseId}</td>
-                            <td>{enrollment.sectionId}</td>
-                            <td>{enrollment.title}</td>
-                            <td>{enrollment.credits}</td>
-                            <td>{enrollment.grade}</td>
+                <h3>Student Transcript</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Semester</th>
+                            <th>CourseId</th>
+                            <th>SectionId</th>
+                            <th>Title</th>
+                            <th>Credits</th>
+                            <th>Grade</th>
                         </tr>
+                    </thead>
+                    <tbody>
+                        {transcriptData.map((enrollment, index) => (
+                            <tr key={index}>
+                                <td>{enrollment.year}</td>
+                                <td>{enrollment.semester}</td>
+                                <td>{enrollment.courseId}</td>
+                                <td>{enrollment.sectionId}</td>
+                                <td>{enrollment.title}</td>
+                                <td>{enrollment.credits}</td>
+                                <td>{enrollment.grade}</td>
+                            </tr>
 
-                    ))}
-                </tbody>
-            </table>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };
