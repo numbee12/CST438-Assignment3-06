@@ -4,23 +4,29 @@ import { useNavigate } from 'react-router-dom';
 const InstructorHome = () => {
     const [term, setTerm] = useState({ year: '', semester: '' });
     const [message, setMessage] = useState('');
-    const navigate = useNavigate();
 
     const onChange = (event) => {
         setTerm({ ...term, [event.target.name]: event.target.value });
     }
 
-    const handleShowSections = () => {
-        if (term.year.trim() === '' || term.semester.trim() === '') {
-            setMessage('Please enter both year and semester.');
-        } else {
-            setMessage('');
-            navigate('/sections', { state: { term } });
+    const onClick = (e) => {
+        let semesters = ['Spring', 'Fall', 'Summer', 'Winter'];
+        if (term.year === '' || term.semester === '') {
+            setMessage("Please enter a year and semester");
+            e.preventDefault();
+        }
+        else if (!semesters.includes(term.semester)) {
+            setMessage("Semester must be Spring, Fall, Summer, or Winter");
+            e.preventDefault();
+        } else if (/^\d+$/.test(term.year) === false) {
+            setMessage("Year must be a number");
+            e.preventDefault();
         }
     }
 
     return (
         <>
+            <h4>{message}</h4>
             <table className="Center">
                 <tbody>
                 <tr>
@@ -33,8 +39,12 @@ const InstructorHome = () => {
                 </tr>
                 </tbody>
             </table>
+<<<<<<< HEAD
             <h4>{message}</h4>
             <button onClick={handleShowSections}>Show Sections</button>
+=======
+            <Link to="/sections" state={{ term }} onClick={onClick}>Show Sections</Link>
+>>>>>>> v1.0
         </>
     )
 };

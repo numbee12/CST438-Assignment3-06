@@ -19,9 +19,7 @@ import AssignmentGrade from './AssignmentGrade';
 const AssignmentsView = (props) => {
     const headers = ['Id', 'Title', 'Due Date', 'Course Id', 'Sec Id', 'Sec No', '', ''];
     const [asgnmts, setAsgnmts] = useState([
-        //dummy data for testing
-        // { id: 1, title: "db homework 1", dueDate: "2024-02-01", courseId: "cst363", secId: 1, secNo: 8},
-        // { id: 2, title: "db homework 2", dueDate: "2024-02-15", courseId: "cst363", secId: 1, secNo: 8}
+
     ]);
     const [message, setMessage] = useState('');
     const [search, setSearch] = useState({id: '', title: '', dueDate: '', secId: '', secNo: ''});
@@ -74,6 +72,7 @@ const AssignmentsView = (props) => {
     const editChange = (event) => {
         setSearch({...search,  [event.target.name]:event.target.value});
     }
+
     const deleteAsgnmt = async (id) => {
         try {
             const response = await fetch (`${SERVER_URL}/assignments/${id}`,
@@ -133,7 +132,7 @@ const AssignmentsView = (props) => {
                                 <td>{a.courseId}</td>
                                 <td>{a.secId}</td>
                                 <td>{a.secNo}</td>
-                                <td><AssignmentUpdate asgnmts={a} onClose={gradeAsgnmt()} /></td>
+                                <td><AssignmentUpdate asgnmts={a} onClose={fetchAsgnmts} /></td>
                                 <td><Button onClick={onDelete}>Delete</Button></td>
                                 <td><AssignmentGrade asgnmtId={a.id} /></td>
                             </tr>

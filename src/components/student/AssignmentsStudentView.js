@@ -23,9 +23,15 @@ const AssignmentsStudentView = (props) => {
 
     //function fetchAssignments sends get request to url to return a list of AssignmentDTOs of student's current assignments. Request Params studentId, year, semester.
     const fetchAssignments = async () => {
+        let semesters = ['Spring', 'Fall', 'Summer', 'Winter'];
+        setMessage('');
         //check parameter values are present
         if (search.studentId === '' || search.year === '' || search.semester === '') {
             setMessage("Enter search parameters");
+        } else if (!semesters.includes(search.semester)) {
+            setMessage("Semester must be Spring, Fall, Summer, or Winter");
+        } else if (/^\d+$/.test(search.year) === false) {
+            setMessage("Year must be a number");
         } else {
             try {
                 //if all params are present, send fetch request to URL
