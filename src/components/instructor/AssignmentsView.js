@@ -132,7 +132,7 @@ const AssignmentsView = (props) => {
                                 <td>{a.courseId}</td>
                                 <td>{a.secId}</td>
                                 <td>{a.secNo}</td>
-                                <td><AssignmentUpdate asgnmts={a} save={gradeAsgnmt} /></td>
+                                <td><AssignmentUpdate asgnmts={a} onClose={fetchAsgnmts} /></td>
                                 <td><Button onClick={onDelete}>Delete</Button></td>
                                 <td><AssignmentGrade asgnmtId={a.id} /></td>
                             </tr>
