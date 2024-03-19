@@ -30,7 +30,7 @@ const AssignmentsStudentView = (props) => {
             setMessage("Enter search parameters");
         } else if (!semesters.includes(search.semester)) {
             setMessage("Semester must be Spring, Fall, Summer, or Winter");
-        } else if (/\d+/.test(search.year) === false) {
+        } else if (/^\d+$/.test(search.year) === false) {
             setMessage("Year must be a number");
         } else {
             try {

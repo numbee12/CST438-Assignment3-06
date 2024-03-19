@@ -19,7 +19,7 @@ const InstructorHome = () => {
         else if (!semesters.includes(term.semester)) {
             setMessage("Semester must be Spring, Fall, Summer, or Winter");
             e.preventDefault();
-        } else if (/\d+/.test(term.year) === false) {
+        } else if (/^\d+$/.test(term.year) === false) {
             setMessage("Year must be a number");
             e.preventDefault();
         }
