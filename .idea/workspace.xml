@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc5397ac-6ff8-4b92-91a4-5f836766d35b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/assign3.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/instructor/AssignmentAdd.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/instructor/AssignmentAdd.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/instructor/AssignmentsView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/instructor/AssignmentsView.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/instructor/InstructorHome.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/instructor/InstructorHome.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

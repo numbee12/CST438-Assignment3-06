@@ -112,6 +112,10 @@ const AssignmentsView = (props) => {
         });
     }
 
+    const handleAddSuccess = () => {
+        setMessage("Assignment successfully added");
+    };
+
     return (
         <>
             <div>
@@ -140,7 +144,7 @@ const AssignmentsView = (props) => {
                         }
                     </tbody>
                 </table>
-                <AssignmentAdd secNo={secNo} courseId={courseId} secId={secId} onClose={fetchAsgnmts} />
+                <AssignmentAdd secNo={secNo} courseId={courseId} secId={secId} onAddSuccess={handleAddSuccess} onClose={fetchAsgnmts} />
             </div>
         </>
     );

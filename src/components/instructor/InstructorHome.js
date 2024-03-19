@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const InstructorHome = () => {
+
     const [term, setTerm] = useState({ year: '', semester: '' });
     const [message, setMessage] = useState('');
 
@@ -39,12 +40,14 @@ const InstructorHome = () => {
                 </tr>
                 </tbody>
             </table>
-
+            <Link to="/sections" state={{ term }} onClick={onClick}>Show Sections</Link>
         </>
     )
 };
 
 export default InstructorHome;
+
+
 
 
 
