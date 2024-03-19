@@ -39,12 +39,7 @@ const InstructorHome = () => {
                 </tr>
                 </tbody>
             </table>
-<<<<<<< HEAD
-            <h4>{message}</h4>
-            <button onClick={handleShowSections}>Show Sections</button>
-=======
-            <Link to="/sections" state={{ term }} onClick={onClick}>Show Sections</Link>
->>>>>>> v1.0
+
         </>
     )
 };
