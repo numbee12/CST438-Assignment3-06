@@ -26,8 +26,14 @@ const ScheduleView = (props) => {
     const [schedules, setSchedules] = useState([]);
 
     const fetchSections = async () => {
+            let semesters = ['Spring', 'Fall', 'Summer', 'Winter'];
+            setMessage('');
             if (search.year==='' || search.semester==='' ) {
-                setMessage("Enter search parameters");
+              setMessage("Enter search parameters");
+            } else if (!semesters.includes(search.semester)) {
+              setMessage("Semester must be Spring, Fall, Summer, or Winter");
+            } else if (/\d+/.test(search.year) === false) {
+              setMessage("Year must be a number");
             } else {
               try {
               //  `${SERVER_URL}/sections?studentId=${search.studentId}&year=${search.year}&semester=${search.semester}`
