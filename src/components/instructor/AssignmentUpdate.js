@@ -15,7 +15,7 @@ const AssignmentUpdate = (props)  => {
   const [open, setOpen] = useState(false);
   const [editMessage, setEditMessage] = useState('');
   const [assignment, setAssignment] = useState(
-      {id: '', title: '', dueDate: ''});
+      {title: '', dueDate: ''});
 
   const editOpen = (event) => {
     setOpen(true);
@@ -25,8 +25,8 @@ const AssignmentUpdate = (props)  => {
 
   const editClose = () => {
     setOpen(false);
-    setAssignment({id: '', title: '', dueDate: ''});
-    props.onClose();
+    setAssignment({title: '', dueDate: ''});
+    // props.onClose();
 
   };
 
