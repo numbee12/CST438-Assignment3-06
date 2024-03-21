@@ -74,7 +74,6 @@ const AssignmentAdd = (props) => {
                 });
             if (response.ok) {
                 const res = await response.json();
-                setEditMessage("Assignment successfully added id=");
                 editClose();
                 props.onAddSuccess();
             } else {
