@@ -39,7 +39,16 @@ const AssignmentGrade = (props) => {
         grades[row_idx].score = event.target.value;
         setGrades([...grades]);
     }
+    const validScores = () => {
+        return !grades.find(g => isNaN(g.score) || +g.score < 0);
+    }
     const onSave = async () => {
+        setMessage('');
+        if (!validScores()) {
+            console.log(grades);
+            setMessage("Scores must be positive numbers");
+            return;
+        }
         try {
             const response = await fetch(`${SERVER_URL}/grades`, {
                 method: 'PUT',

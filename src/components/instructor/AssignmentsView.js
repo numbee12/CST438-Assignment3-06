@@ -18,17 +18,13 @@ import AssignmentGrade from './AssignmentGrade';
 
 const AssignmentsView = (props) => {
     const headers = ['Id', 'Title', 'Due Date', 'Course Id', 'Sec Id', 'Sec No', '', ''];
-    const [asgnmts, setAsgnmts] = useState([
-
-    ]);
+    const [asgnmts, setAsgnmts] = useState([]);
     const [message, setMessage] = useState('');
-    const [search, setSearch] = useState({id: '', title: '', dueDate: '', secId: '', secNo: ''});
 
     const location = useLocation();
     const { secNo, courseId, secId } = location.state;
 
     const fetchAsgnmts = async () => {
-        // TODO: get the assignments
         try{
             const response = await fetch(`${SERVER_URL}/sections/${secNo}/assignments`);
             if (response.ok){
@@ -46,32 +42,6 @@ const AssignmentsView = (props) => {
     useEffect( () => {
         fetchAsgnmts();
     }, []);
-
-    const gradeAsgnmt = async (asgnmt) => {
-        try {
-            const response = await fetch(`${SERVER_URL}/grades`,
-                {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(asgnmt),
-                });
-            if (response.ok) {
-                setMessage("Grade Saved")
-                fetchAsgnmts();
-            } else {
-                const rc = await response.json();
-                setMessage(rc.message);
-            }
-        } catch (err) {
-            setMessage("network error: "+err);
-        }
-    }
-
-    const editChange = (event) => {
-        setSearch({...search,  [event.target.name]:event.target.value});
-    }
 
     const deleteAsgnmt = async (id) => {
         try {
