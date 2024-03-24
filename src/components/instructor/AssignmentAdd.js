@@ -87,18 +87,20 @@ const AssignmentAdd = (props) => {
 
     return (
         <>
-            <Button onClick={editOpen}>Add Assignment</Button>
+            <Button id="addAsgnmtButton" onClick={editOpen}>Add Assignment</Button>
             <Dialog open={open} >
                 <DialogTitle>Add Assignment</DialogTitle>
                 <DialogContent style={{ paddingTop: 20 }} >
                     <h4>{editMessage}</h4>
                     <TextField style={{ padding: 10 }}
+                        id="addAsgnmtTitle"
                         fullWidth
                         label="Title"
                         name="title"
                         value={asgnmt.title}
                         onChange={editChange} />
                     <TextField style={{ padding: 10 }}
+                        id="addAsgnmtDueDate"
                         fullWidth
                         label="Due Date"
                         name="dueDate"

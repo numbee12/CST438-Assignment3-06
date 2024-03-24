@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom'
 import AssignmentAdd from './AssignmentAdd';
 import {SERVER_URL} from '../../Constants';
 import {confirmAlert} from "react-confirm-alert";
-import SectionUpdate from "../admin/SectionUpdate";
 import Button from "@mui/material/Button";
 import AssignmentUpdate from "./AssignmentUpdate";
 import AssignmentGrade from './AssignmentGrade';
