@@ -40,7 +40,7 @@ const InstructorHome = () => {
                 </tr>
                 </tbody>
             </table>
-            <Link to="/sections" state={{ term }} onClick={onClick}>Show Sections</Link>
+            <Link to="/sections" id="showSections" state={{ term }} onClick={onClick}>Show Sections</Link>
         </>
     )
 };

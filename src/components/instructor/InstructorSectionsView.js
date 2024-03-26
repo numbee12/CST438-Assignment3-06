@@ -47,7 +47,7 @@ const InstructorSectionsView = (props) => {
         <div>
             <h3>Sections</h3>
             <h4>{message}</h4>
-            <table className="Center" >
+            <table id="sectionsTable" className="Center" >
                 <thead>
                     <tr>
                         {headers.map((s, idx) => (<th key={idx}>{s}</th>))}
