@@ -98,7 +98,7 @@ const AssignmentsView = (props) => {
                     </thead>
                     <tbody>
                         {asgnmts.map((a) => (
-                            <tr key={a.id}>
+                            <tr id="sectionAssignments" key={a.id}>
                                 <td>{a.id}</td>
                                 <td>{a.title}</td>
                                 <td>{a.dueDate}</td>
@@ -107,7 +107,7 @@ const AssignmentsView = (props) => {
                                 <td>{a.secNo}</td>
                                 <td><AssignmentUpdate asgnmts={a} onClose={fetchAsgnmts} /></td>
                                 <td><Button onClick={onDelete}>Delete</Button></td>
-                                <td><AssignmentGrade asgnmtId={a.id} /></td>
+                                <td id="assignmentGrades"><AssignmentGrade asgnmtId={a.id} /></td>
                             </tr>
                         ))
                         }

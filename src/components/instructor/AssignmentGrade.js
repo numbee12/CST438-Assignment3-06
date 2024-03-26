@@ -96,21 +96,21 @@ const AssignmentGrade = (props) => {
                                 {headers.map((g, idx) => (<th key={idx}>{g}</th>))}
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="assignments" >
                             {grades.map((g, idx) => (
-                                <tr key={g.gradeId}>
+                                <tr id="assignments"  key={g.gradeId}>
                                     <td>{g.gradeId}</td>
                                     <td>{g.studentName}</td>
                                     <td>{g.studentEmail}</td>
-                                    <td><input type="text" name="score" value={g.score} onChange={onChange} /></td>
+                                    <td id="score"><input  type="text" name="score" value={g.score} onChange={onChange} /></td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </DialogContent>
                 <DialogActions>
-                    <Button color="secondary" onClick={editClose}>Close</Button>
-                    <Button color="primary" onClick={onSave}>Save</Button>
+                    <Button id="scoreClose" color="secondary" onClick={editClose}>Close</Button>
+                    <Button id="scoreSave" color="primary" onClick={onSave}>Save</Button>
                 </DialogActions>
             </Dialog>
 
