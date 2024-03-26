@@ -96,8 +96,8 @@ const EnrollmentsView = (props) => {
                     <>
                         <div>
                             <h3>Enrollments</h3>
-                            <h4>{message}</h4>
-                            <table className="Center" >
+                            <h4 id="enrollmentsMessage">{message}</h4>
+                            <table id="enrollmentsTable" className="Center" >
                                 <thead>
                                     <tr>
                                         {headers.map((s, idx) => (<th key={idx}>{s}</th>))}
@@ -123,7 +123,7 @@ const EnrollmentsView = (props) => {
                                     }
                                 </tbody>
                             </table>
-                            <Button onClick={onSave}>Save Grades</Button>
+                            <Button id="saveGrades" onClick={onSave}>Save Grades</Button>
                         </div>
                     </>
                 );
